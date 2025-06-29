@@ -1,0 +1,80 @@
+@import "tailwindcss";
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+@theme {
+    --font-sans: "Instrument Sans", ui-sans-serif, system-ui, sans-serif,
+        "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+        "Noto Color Emoji";
+}
+
+/* لتغيير لون الـ Sidebar */
+.filament-sidebar {
+    background-color: #1d4ed8; /* اللون الأزرق مثلا */
+}
+
+/* لتغيير اللون عند مرور الماوس */
+.filament-sidebar:hover {
+    background-color: #2563eb; /* الأزرق الغامق */
+}
+
+body,
+html {
+    margin: 0;
+    padding: 0;
+    /* height: 100%; */
+    background-image: url("{{ asset('background.jpg') }}");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.transparent-box {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    padding: 2rem;
+    max-width: 400px;
+    width: 100%;
+    margin: auto;
+    color: white;
+}
+
+.btn-white {
+    background-color: aliceblue;
+    color: black;
+}
+
+.btn-grey {
+    background-color: grey;
+    color: white;
+}
+
+.btn-white:hover {
+    background-color: #f0f0f0;
+    color: black;
+}
+
+.btn-grey:hover {
+    background-color: #555;
+    color: white;
+}
+
+.login-sectionx {
+    color: white;
+    width: 100%;
+    background: none;
+    border: none;
+    border-bottom: 2px solid white;
+}
+
+.login-sectionx::placeholder {
+    color: #ccc;
+    opacity: 1;
+}

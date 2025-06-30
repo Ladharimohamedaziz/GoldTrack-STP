@@ -46,24 +46,3 @@ Route::post('/logout', function (Request $request) {
     return redirect('/login');
 })->name('logout');
 
-
-
-Route::post('/ask-chatbot', function (Request $request) {
-    $request->validate([
-        'query' => 'required|string',
-    ]);
-
-   
-    try {
-        $response = Http::timeout(120)->post('http://127.0.0.1:5000/ask', [
-            'query' => $request->input('query'),
-        ]);
-        $answer = $response->json('response') ?? 'famech response';
-    } catch (\Exception $e) {
-        $answer = '  fama mochkol : ' . $e->getMessage();
-    }
-
-    return response()->json([
-        'response' => $answer,
-    ]);
-})->name('ask-chatbot');

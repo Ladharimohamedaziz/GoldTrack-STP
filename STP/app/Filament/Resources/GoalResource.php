@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Filament\Resources;
+
 use App\Filament\Resources\GoalResource\Pages;
 
 use App\Filament\Resources\GoalResource\Pages\ListGoals;
@@ -21,15 +22,16 @@ class GoalResource extends Resource
 {
     protected static ?string $model = \App\Models\Goal::class;
 
+    protected static ?string $navigationIcon = 'heroicon-o-flag';
     public static function form(Forms\Form $form): Forms\Form
     {
         return $form->schema([
             Hidden::make('user_id')
-                    ->default(fn() => Filament::auth()->id())
-                    ->dehydrated(),
+                ->default(fn() => Filament::auth()->id())
+                ->dehydrated(),
             TextInput::make('name')->required(),
             TextInput::make('note')->nullable(),
-            TextInput::make('amount')->numeric()->required(),
+            TextInput::make('amount')->numeric()->prefix('TND')->required(),
         ]);
     }
 

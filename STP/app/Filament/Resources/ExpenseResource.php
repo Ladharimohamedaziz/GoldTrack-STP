@@ -25,6 +25,8 @@ class ExpenseResource extends Resource
 {
     protected static ?string $model = \App\Models\Expense::class;
 
+    protected static ?string $navigationIcon = 'heroicon-o-currency-dollar';
+
     public static function form(Forms\Form $form): Forms\Form
     {
         return $form->schema([
@@ -40,6 +42,7 @@ class ExpenseResource extends Resource
             TextInput::make('name')->required(),
             // TextInput::make('amount')->numeric()->required(),
             TextInput::make('amount')
+                ->prefix('TND') 
                 ->numeric()
                 ->required()
                 ->label('Amount')

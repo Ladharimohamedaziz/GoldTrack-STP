@@ -20,7 +20,10 @@ use App\Filament\Resources\CategoryResource\Pages\EditCategory;
 
 class CategoryResource extends Resource
 {
+    
     protected static ?string $model = \App\Models\Category::class;
+    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack'; // Categories
+
 
     public static function form(Forms\Form $form): Forms\Form
     {

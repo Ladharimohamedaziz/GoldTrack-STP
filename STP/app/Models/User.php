@@ -21,7 +21,7 @@ class User extends Authenticatable
     //     'email',
     //     'password',
     // ];
-     protected $fillable = [
+    protected $fillable = [
         'name',
         'first_name',
         'last_name',
@@ -53,4 +53,13 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    public function getFilamentName(): string
+    {
+        return $this->name;
+    }
+
+//     public function getFilamentAvatarUrl(): ?string
+// {
+//     return $this->avatar_url; 
+// }
 }

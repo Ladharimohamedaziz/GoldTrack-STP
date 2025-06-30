@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Filament\Resources;
 
 use Filament\Resources\Resource;
@@ -20,17 +21,19 @@ use App\Filament\Resources\BudgetLimitResource\Pages\EditBudgetLimit;
 
 class BudgetLimitResource extends Resource
 {
-    protected static ?string $model = \App\Models\BudgetLimit::class;
+    protected static ?string $navigationIcon = 'heroicon-o-chart-bar'; // Budget Limit
 
+    protected static ?string $model = \App\Models\BudgetLimit::class;
+  
     public static function form(Forms\Form $form): Forms\Form
     {
         return $form->schema([
-           Hidden::make('user_id')
-                    ->default(fn() => Filament::auth()->id())
-                    ->dehydrated(),
+            Hidden::make('user_id')
+                ->default(fn() => Filament::auth()->id())
+                ->dehydrated(),
             TextInput::make('name')->required(),
             Select::make('period')->options(['month' => 'Monthly', 'year' => 'Yearly'])->required(),
-            TextInput::make('amount')->numeric()->required(),
+            TextInput::make('amount')->numeric()->required()->prefix('TND'),
         ]);
     }
 

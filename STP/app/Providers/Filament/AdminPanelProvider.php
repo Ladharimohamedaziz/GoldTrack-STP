@@ -31,7 +31,6 @@ use Filament\Pages\Dashboard;
 class AdminPanelProvider extends PanelProvider
 {
     public function boot(): void {}
-
     public function panel(Panel $panel): Panel
     {
         return $panel

@@ -8,9 +8,11 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Hidden;
+use Filament\Forms\Components\FileUpload;
 use Filament\Tables;
 use Filament\Facades\Filament;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Actions;
 use App\Filament\Resources\CategoryResource\Pages;
 use Filament\Actions\DeleteBulkAction;
@@ -20,7 +22,7 @@ use App\Filament\Resources\CategoryResource\Pages\EditCategory;
 
 class CategoryResource extends Resource
 {
-    
+
     protected static ?string $model = \App\Models\Category::class;
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack'; // Categories
 
@@ -29,10 +31,14 @@ class CategoryResource extends Resource
     {
         return $form->schema([
             Hidden::make('user_id')
-                    ->default(fn() => Filament::auth()->id())
-                    ->dehydrated(),
+                ->default(fn() => Filament::auth()->id())
+                ->dehydrated(),
             TextInput::make('name')->required(),
-            TextInput::make('icon')->label('Icon Path')->nullable(),
+            // TextInput::make('icon')->label('Icon Path')->nullable(),
+            FileUpload::make('icon')
+                ->image()
+                ->disk('public')
+                ->directory('category-icons'),
             Select::make('type')->options(['incomes' => 'Incomes', 'expenses' => 'Expenses'])->required(),
         ]);
     }
@@ -43,7 +49,11 @@ class CategoryResource extends Resource
             ->columns([
                 TextColumn::make('name')->searchable(),
                 TextColumn::make('type'),
-                TextColumn::make('icon'),
+                // TextColumn::make('icon'),
+                ImageColumn::make('icon')
+                    ->disk('public')
+                    ->label('Icon')
+                    ->circular(),
             ])
             ->filters([])
             ->actions([

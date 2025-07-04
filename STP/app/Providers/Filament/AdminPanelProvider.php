@@ -37,6 +37,7 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->profile()
+            // ->brandTheme('resources/css/filament/admin/theme.css')
             ->userMenuItems([
             'profile' => MenuItem::make('profile')
                 ->label(fn () => \Illuminate\Support\Facades\Auth::user()?->name ?? 'Profile'),

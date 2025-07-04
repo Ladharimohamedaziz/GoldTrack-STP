@@ -16,9 +16,9 @@
     background-color: #1d4ed8; /* اللون الأزرق مثلا */
 }
 
-/* لتغيير اللون عند مرور الماوس */
+
 .filament-sidebar:hover {
-    background-color: #2563eb; /* الأزرق الغامق */
+    background-color: #2563eb; 
 }
 
 body,

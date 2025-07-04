@@ -22,9 +22,7 @@ use App\Filament\Resources\BudgetLimitResource\Pages\EditBudgetLimit;
 class BudgetLimitResource extends Resource
 {
     protected static ?string $navigationIcon = 'heroicon-o-chart-bar'; // Budget Limit
-
     protected static ?string $model = \App\Models\BudgetLimit::class;
-  
     public static function form(Forms\Form $form): Forms\Form
     {
         return $form->schema([
@@ -36,7 +34,6 @@ class BudgetLimitResource extends Resource
             TextInput::make('amount')->numeric()->required()->prefix('TND'),
         ]);
     }
-
     public static function table(Tables\Table $table): Tables\Table
     {
         return $table
@@ -53,7 +50,6 @@ class BudgetLimitResource extends Resource
                 Tables\Actions\DeleteBulkAction::make(),
             ]);
     }
-
     public static function getPages(): array
     {
         return [

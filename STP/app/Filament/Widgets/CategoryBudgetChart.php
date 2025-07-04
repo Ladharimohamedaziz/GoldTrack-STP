@@ -38,10 +38,8 @@ class CategoryBudgetChart extends ChartWidget
             $limit = $category->expenses->map(function ($expense) {
                 return optional($expense->budgetLimit)->amount ?? 0;
             })->unique()->sum();
-
             $limits[] = $limit;
         }
-
         return [
             'datasets' => [
                 [
@@ -52,14 +50,13 @@ class CategoryBudgetChart extends ChartWidget
                 [
                     'label' => 'Limite du budget',
                     'data' => $limits,
-                    'backgroundColor' => 'rgba(75, 192, 75, 0.6)', // Vert
+                    'backgroundColor' => 'rgba(75, 192, 75, 0.6)', 
                     'borderColor' => 'rgba(75, 192, 80, 1)',
                 ],
             ],
             'labels' => $labels,
         ];
     }
-
     protected function getType(): string
     {
         return 'bar';

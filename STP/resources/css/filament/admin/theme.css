@@ -1,0 +1,6 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* required for the language switch plugin */
+@source "../../../../vendor/bezhansalleh/filament-language-switch/resources/views/**/*.blade.php";

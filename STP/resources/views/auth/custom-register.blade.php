@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -17,6 +18,7 @@
             background-position: center;
             background-repeat: no-repeat;
         }
+
         .transparent-box {
             background: rgba(255, 255, 255, 0.1);
             border-radius: 16px;
@@ -75,7 +77,8 @@
     <div class="d-flex justify-content-center align-items-center ">
         <div class="transparent-box text-center">
             <img src="{{ asset('GoldTrackWhite.png') }}" alt="Logo" class="img-fluid mb-4" style="max-width: 180px;" />
-            <form method="POST" action="{{ route('register.custom') }}">
+            <form method="POST" action="{{ route('register.custom') }}" enctype="multipart/form-data">
+
                 @csrf
                 <div class="mb-3">
                     <input type="text" name="first_name" class="form-control bg-transparent border-bottom login-sectionx text-white" placeholder="First Name" required />
@@ -92,6 +95,10 @@
                 <div class="mb-3">
                     <input type="date" name="dob" class="form-control bg-transparent border-bottom login-sectionx text-white" placeholder="Date of Birth" required />
                 </div>
+                <div class="mb-3">
+                    <input type="file" name="profile_image" class="form-control bg-transparent border-bottom login-sectionx text-white" accept="image/*" />
+                </div>
+
                 <div class="mb-3">
                     <input type="password" name="password" class="form-control bg-transparent border-bottom login-sectionx text-white" placeholder="Password" required />
                 </div>

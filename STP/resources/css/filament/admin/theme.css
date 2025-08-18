@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@tailwind variants;
+@import '../../../../vendor/filament/filament/resources/css/base.css';
 
-/* required for the language switch plugin */
-@source "../../../../vendor/bezhansalleh/filament-language-switch/resources/views/**/*.blade.php";
+@config 'tailwind.config.js';

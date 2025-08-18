@@ -1,0 +1,40 @@
+<?php
+
+return [
+  
+    'goal'=>'goal',
+    'expense_limit'=>'Expense limit',
+    'Categories'=>'Categorie',
+    'Expense'=>'Expense',
+    'incomes'=>'Income',
+
+    "goal_fields"=>[
+        "amount"=>"Amount",
+        "name"=>"Name",
+        "Icon"=>"Icon",
+        "period"=>"Period",
+        "note"=>"Note",
+        "received_date"=>"Received date",
+        "start_date"=>"Start date",
+        "end_date"=>"End date ",
+        "status"=>"Statut",
+        "progress"=>"Progress",
+        "created_at"=>"Created at",
+        "updated_at"=>"Updated at",
+        "user_id"=>"ID user",
+        "currency"=>"Currency",
+        "goal_type"=>"Goal type",
+        "goal_status"=>"Goal status",
+        "goal_progress"=>"Goal progress",
+        "goal_description"=>"Goal description",
+        "goal_target_date"=>"Target date of the goal",
+        "goal_actual_date"=>"Actual date of the goal",
+        "goal_category"=>"Goal category",
+        "goal_priority"=>"Goal priority",  
+        "goal_notes"=>"Goal notes",
+        "goal_tags"=>"Goal tags",
+        "goal_image"=>"Goal image",
+        "Category"=>"Categories",
+        "budget_limit"=>"Budget limit",
+    ],
+];

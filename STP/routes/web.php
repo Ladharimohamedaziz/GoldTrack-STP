@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 
 use Livewire\Livewire;
 use App\Http\Livewire\CustomLogin;
+use App\Http\Controllers\Auth\RegisterController;
 Route::get('/', function () {
     return view('welcome');
 });
@@ -20,6 +21,8 @@ Route::get('/register', function () {
 })->name('register');
 Route::get('/register', [CustomRegisterController::class, 'showForm'])->name('register.form');
 Route::post('/register', [CustomRegisterController::class, 'register'])->name('register.custom');
+// Route::get('/register', [RegisterController::class, 'showRegisterForm'])->name('register');
+// Route::post('/register', [RegisterController::class, 'register'])->name('register.custom');
 
 
 

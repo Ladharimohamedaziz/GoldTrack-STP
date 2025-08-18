@@ -23,15 +23,35 @@ class GoalResource extends Resource
     protected static ?string $model = \App\Models\Goal::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-flag';
+
+    public static function getNavigationLabel(): string
+    {
+        return __('lang.goal');
+    }
+    public static function getModelLabel(): string
+    {
+        return __('lang.goal');
+    }
+
+
     public static function form(Forms\Form $form): Forms\Form
     {
         return $form->schema([
+            // Hidden::make('user_id')
+            //     // ->default(fn() => Filament::auth()->id())
+            //     ->default(fn() => auth()->guard('web')->id()) 
+            //     ->dehydrated(),
             Hidden::make('user_id')
-                ->default(fn() => Filament::auth()->id())
+                ->default(fn() => auth()->guard('web')->check() ? auth()->guard('web')->id() : null)
                 ->dehydrated(),
-            TextInput::make('name')->required(),
+
+            TextInput::make('name')
+                ->label(__('lang.goal_fields.name'))
+                ->required(),
             TextInput::make('note')->nullable(),
-            TextInput::make('amount')->numeric()->prefix('TND')->required(),
+            TextInput::make('amount')
+                ->label(__('lang.goal_fields.amount'))
+                ->numeric()->prefix('TND')->required(),
         ]);
     }
 
@@ -39,8 +59,11 @@ class GoalResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('name')->searchable(),
-                TextColumn::make('amount')->money('TND'),
+                TextColumn::make('name')
+                    ->label(__('lang.goal_fields.name'))
+                    ->searchable(),
+                TextColumn::make('amount')->label(__('lang.goal_fields.amount'))
+                    ->money('TND')
             ])
             ->filters([])
             ->actions([
@@ -50,7 +73,13 @@ class GoalResource extends Resource
                 Tables\Actions\DeleteBulkAction::make(),
             ]);
     }
+    public static function getEloquentQuery(): \Illuminate\Database\Eloquent\Builder
+    {
+        // dd(auth()->guard('web')->id());
 
+        return parent::getEloquentQuery()
+            ->where('user_id', auth()->guard('web')->id());
+    }
     public static function getPages(): array
     {
         return [

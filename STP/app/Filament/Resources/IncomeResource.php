@@ -20,15 +20,35 @@ class IncomeResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-banknotes';
     protected static ?string $navigationGroup = 'Finance Management';
 
+public static function getNavigationLabel(): string
+    {
+        return __('lang.incomes');
+    }
+    public static function getModelLabel(): string
+    {
+        return __('lang.incomes');
+    }
+
+    // public static function getNavigationGroup(): ?string
+    // {
+    //     return __('lang.finance_management');
+    // }
+
+
+    
+    // public static function getPluralModelLabel(): string
+    // {
+    //     return __('lang.incomes');
+    // }
     public static function form(Forms\Form $form): Forms\Form
     {
         return $form->schema([
             Hidden::make('user_id')
-                ->default(fn () => Filament::auth()->id())
+                // ->default(fn () => Filament::auth()->id())
+                ->default(fn() => auth()->guard('web')->id()) 
                 ->dehydrated(),
-
             Select::make('category_id')
-                ->label('Category')
+                ->label(__('lang.goal_fields.Category'))
                 ->relationship(
                     name: 'category',
                     titleAttribute: 'name',
@@ -37,33 +57,42 @@ class IncomeResource extends Resource
                         ->where('user_id', Filament::auth()->id())
                 )
                 ->required(),
-
             TextInput::make('source')
                 ->required()
                 ->maxLength(255),
-
             TextInput::make('amount')
+                ->label(__('lang.goal_fields.amount'))
                 ->numeric()
                 ->required(),
-
-            DatePicker::make('received_date')->required(),
+            DatePicker::make('received_date')
+                ->label(__('lang.goal_fields.received_date'))
+                ->default(now())
+                ->required(),
         ]);
     }
-
     public static function table(Tables\Table $table): Tables\Table
     {
         return $table->columns([
             TextColumn::make('source')->searchable(),
-            TextColumn::make('amount')->money('TND', true),
-            TextColumn::make('received_date')->date(),
-            TextColumn::make('category.name')->label('Category'),
+            TextColumn::make('amount')
+            ->label(__('lang.goal_fields.amount'))
+            ->money('TND', true),
+            TextColumn::make('received_date')
+            ->label(__('lang.goal_fields.received_date'))
+            ->date(),
+            TextColumn::make('category.name')
+            ->label(__('lang.goal_fields.Category'))       
         ])->actions([
             Tables\Actions\EditAction::make(),
         ])->bulkActions([
             Tables\Actions\DeleteBulkAction::make(),
         ]);
     }
-
+      public static function getEloquentQuery(): \Illuminate\Database\Eloquent\Builder
+    {
+        return parent::getEloquentQuery()
+            ->where('user_id', auth()->guard('web')->id());
+    }
     public static function getPages(): array
     {
         return [

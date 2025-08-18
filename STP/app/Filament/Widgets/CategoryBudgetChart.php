@@ -6,6 +6,7 @@ use Filament\Widgets\ChartWidget;
 use App\Models\Category;
 use App\Models\Expense;
 use App\Models\BudgetLimit;
+use Illuminate\Support\Facades\Auth;
 
 class CategoryBudgetChart extends ChartWidget
 {
@@ -13,7 +14,9 @@ class CategoryBudgetChart extends ChartWidget
 
     protected function getData(): array
     {
-        $categories = Category::with('expenses.budgetLimit')->get();
+      $categories = Category::with('expenses.budgetLimit')
+    ->where('user_id', auth()->guard('web')->check() ? auth()->guard('web')->id() : null)
+    ->get();
 
         $labels = [];
         $spent = [];
@@ -50,7 +53,7 @@ class CategoryBudgetChart extends ChartWidget
                 [
                     'label' => 'Limite du budget',
                     'data' => $limits,
-                    'backgroundColor' => 'rgba(75, 192, 75, 0.6)', 
+                    'backgroundColor' => 'rgba(75, 192, 75, 0.6)',
                     'borderColor' => 'rgba(75, 192, 80, 1)',
                 ],
             ],

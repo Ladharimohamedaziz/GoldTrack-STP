@@ -26,16 +26,24 @@ class CategoryResource extends Resource
     protected static ?string $model = \App\Models\Category::class;
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack'; // Categories
 
+ public static function getNavigationLabel(): string
+    {
+        return __('lang.Categories');
+    }
+    public static function getModelLabel(): string
+    {
+        return __('lang.Categories');
+    }
 
     public static function form(Forms\Form $form): Forms\Form
     {
         return $form->schema([
-            Hidden::make('user_id')
-                ->default(fn() => Filament::auth()->id())
-                ->dehydrated(),
-            TextInput::make('name')->required(),
+             Hidden::make('user_id')
+            ->default(fn() => auth()->guard('web')->check() ? auth()->guard('web')->id() : null)
+            ->dehydrated(),
+            TextInput::make('name')->label(__('lang.goal_fields.name'))->required(),
             // TextInput::make('icon')->label('Icon Path')->nullable(),
-            FileUpload::make('icon')
+            FileUpload::make('icon')->label(__('lang.goal_fields.Icon'))
                 ->image()
                 ->disk('public')
                 ->directory('category-icons'),
@@ -47,12 +55,11 @@ class CategoryResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('name')->searchable(),
+                TextColumn::make('name')->label(__('lang.goal_fields.name'))->searchable(),
                 TextColumn::make('type'),
                 // TextColumn::make('icon'),
-                ImageColumn::make('icon')
+                ImageColumn::make('Icon')->label(__('lang.goal_fields.Icon'))
                     ->disk('public')
-                    ->label('Icon')
                     ->circular(),
             ])
             ->filters([])
@@ -64,6 +71,14 @@ class CategoryResource extends Resource
             ]);
     }
 
+
+  public static function getEloquentQuery(): \Illuminate\Database\Eloquent\Builder
+{
+    return parent::getEloquentQuery()
+        ->where('user_id', auth()->guard('web')->check() ? auth()->guard('web')->id() : 0);
+}
+
+    
     public static function getPages(): array
     {
         return [

@@ -23,24 +23,32 @@ class BudgetLimitResource extends Resource
 {
     protected static ?string $navigationIcon = 'heroicon-o-chart-bar'; // Budget Limit
     protected static ?string $model = \App\Models\BudgetLimit::class;
+     public static function getNavigationLabel(): string
+    {
+        return __('lang.expense_limit');
+    }
+    public static function getModelLabel(): string
+    {
+        return __('lang.expense_limit');
+    }
     public static function form(Forms\Form $form): Forms\Form
     {
         return $form->schema([
             Hidden::make('user_id')
-                ->default(fn() => Filament::auth()->id())
-                ->dehydrated(),
-            TextInput::make('name')->required(),
-            Select::make('period')->options(['month' => 'Monthly', 'year' => 'Yearly'])->required(),
-            TextInput::make('amount')->numeric()->required()->prefix('TND'),
+                ->default(fn() => auth()->guard('web')->id()) 
+                ->dehydrated(), 
+            TextInput::make('name')->label(__('lang.goal_fields.name'))->required(),
+            Select::make('period')->label(__('lang.goal_fields.period'))->options(['month' => 'Monthly', 'year' => 'Yearly'])->required(),
+            TextInput::make('amount')->label(__('lang.goal_fields.amount'))->numeric()->required()->prefix('TND'),
         ]);
     }
     public static function table(Tables\Table $table): Tables\Table
     {
         return $table
             ->columns([
-                TextColumn::make('name')->searchable(),
-                TextColumn::make('period'),
-                TextColumn::make('amount')->money('TND'),
+                TextColumn::make('name')->label(__('lang.goal_fields.name'))->searchable(),
+                TextColumn::make('period')->label(__('lang.goal_fields.period'))->searchable(),
+                TextColumn::make('amount')->label(__('lang.goal_fields.amount'))->money('TND'),
             ])
             ->filters([])
             ->actions([
@@ -50,6 +58,13 @@ class BudgetLimitResource extends Resource
                 Tables\Actions\DeleteBulkAction::make(),
             ]);
     }
+
+      public static function getEloquentQuery(): \Illuminate\Database\Eloquent\Builder
+    {
+        return parent::getEloquentQuery()
+            ->where('user_id', auth()->guard('web')->id());
+    }
+    
     public static function getPages(): array
     {
         return [

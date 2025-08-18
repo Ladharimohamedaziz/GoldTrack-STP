@@ -1,10 +1,8 @@
 <?php
 
 namespace App\Providers;
-
 use Illuminate\Support\ServiceProvider;
 use Filament\Support\Facades\FilamentColor;
-// use Filament\Widgets\LanguageSwitch;
 use BezhanSalleh\FilamentLanguageSwitch\LanguageSwitch;
 
 class AppServiceProvider extends ServiceProvider
@@ -17,7 +15,7 @@ class AppServiceProvider extends ServiceProvider
         ]);
         LanguageSwitch::configureUsing(function (LanguageSwitch $switch) {
             $switch
-                ->locales(['ar', 'en', 'fr']); // Add your supported locales here
+                ->locales(['ar', 'en', 'fr']); 
         });
     }
 }

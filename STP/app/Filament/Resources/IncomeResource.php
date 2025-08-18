@@ -13,6 +13,13 @@ use Filament\Facades\Filament;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
+use App\Filament\Imports\ExpenseImporter;
+
+// use Filament\Tables\Actions\ExportAction;
+use Filament\Tables\Actions\ImportAction;
+
+
+use App\Filament\Imports\IncomeImporter;
 
 class IncomeResource extends Resource
 {
@@ -20,7 +27,7 @@ class IncomeResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-banknotes';
     protected static ?string $navigationGroup = 'Finance Management';
 
-public static function getNavigationLabel(): string
+    public static function getNavigationLabel(): string
     {
         return __('lang.incomes');
     }
@@ -35,7 +42,7 @@ public static function getNavigationLabel(): string
     // }
 
 
-    
+
     // public static function getPluralModelLabel(): string
     // {
     //     return __('lang.incomes');
@@ -45,14 +52,14 @@ public static function getNavigationLabel(): string
         return $form->schema([
             Hidden::make('user_id')
                 // ->default(fn () => Filament::auth()->id())
-                ->default(fn() => auth()->guard('web')->id()) 
+                ->default(fn() => auth()->guard('web')->id())
                 ->dehydrated(),
             Select::make('category_id')
                 ->label(__('lang.goal_fields.Category'))
                 ->relationship(
                     name: 'category',
                     titleAttribute: 'name',
-                    modifyQueryUsing: fn ($query) => $query
+                    modifyQueryUsing: fn($query) => $query
                         ->where('type', 'incomes')
                         ->where('user_id', Filament::auth()->id())
                 )
@@ -72,23 +79,27 @@ public static function getNavigationLabel(): string
     }
     public static function table(Tables\Table $table): Tables\Table
     {
-        return $table->columns([
-            TextColumn::make('source')->searchable(),
-            TextColumn::make('amount')
-            ->label(__('lang.goal_fields.amount'))
-            ->money('TND', true),
-            TextColumn::make('received_date')
-            ->label(__('lang.goal_fields.received_date'))
-            ->date(),
-            TextColumn::make('category.name')
-            ->label(__('lang.goal_fields.Category'))       
-        ])->actions([
-            Tables\Actions\EditAction::make(),
-        ])->bulkActions([
-            Tables\Actions\DeleteBulkAction::make(),
-        ]);
+        return $table->headerActions([
+            ImportAction::make()
+                ->importer(IncomeImporter::class),
+        ])
+            ->columns([
+                TextColumn::make('source')->searchable(),
+                TextColumn::make('amount')
+                    ->label(__('lang.goal_fields.amount'))
+                    ->money('TND', true),
+                TextColumn::make('received_date')
+                    ->label(__('lang.goal_fields.received_date'))
+                    ->date(),
+                TextColumn::make('category.name')
+                    ->label(__('lang.goal_fields.Category'))
+            ])->actions([
+                Tables\Actions\EditAction::make(),
+            ])->bulkActions([
+                Tables\Actions\DeleteBulkAction::make(),
+            ]);
     }
-      public static function getEloquentQuery(): \Illuminate\Database\Eloquent\Builder
+    public static function getEloquentQuery(): \Illuminate\Database\Eloquent\Builder
     {
         return parent::getEloquentQuery()
             ->where('user_id', auth()->guard('web')->id());

@@ -22,12 +22,10 @@ use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Filament\Navigation\UserMenuItem;
 use Filament\Facades\Filament;
 use Filament\Navigation\MenuItem;
-
-
-
 use Filament\Navigation\NavigationBuilder;
 use Filament\Navigation\NavigationGroup;
 use Filament\Pages\Dashboard;
+use Filament\Pages\Page;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -38,11 +36,11 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->profile()
-            // ->brandTheme('resources/css/filament/admin/theme.css')
-            ->userMenuItems([
-            'profile' => MenuItem::make('profile')
-                ->label(fn () => \Illuminate\Support\Facades\Auth::user()?->name ?? 'Profile'),
-        ])
+
+                ->userMenuItems([
+                'profile' => MenuItem::make('profile')
+                    ->label(fn () => \Illuminate\Support\Facades\Auth::user()?->name ?? 'Profile'),
+            ])
             ->path('admin')
             // ->favicon('https://www.google.com/favicon.ico')
             ->path('admin')
@@ -65,7 +63,10 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
-            ->pages([])
+            ->pages([
+                // \App\Filament\Pages\profile::class,
+                // route('filament.pages.account');
+            ])
             ->widgets([
                 \App\Filament\Widgets\FinancialCards::class,
                 \App\Filament\Widgets\MonthlyFinanceChart::class,

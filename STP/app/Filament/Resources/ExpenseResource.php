@@ -39,7 +39,7 @@ class ExpenseResource extends Resource
         return __('lang.Expense');
     }
 
-public static function getPluralModelLabel(): string
+    public static function getPluralModelLabel(): string
     {
         return __('lang.expenses'); // plural
     }
@@ -50,7 +50,7 @@ public static function getPluralModelLabel(): string
         return $form->schema([
             Hidden::make('user_id')
                 // ->default(fn() => Filament::auth()->id())
-                ->default(fn() => auth()->guard('web')->id()) 
+                ->default(fn() => auth()->guard('web')->id())
                 ->dehydrated(),
             Select::make('category_id')->label(__('lang.goal_fields.Category'))
 
@@ -90,18 +90,20 @@ public static function getPluralModelLabel(): string
     public static function table(Tables\Table $table): Tables\Table
     {
         return $table
-->headerActions([
-    ImportAction::make()
-        ->importer(ExpenseImporter::class),
-    ExportAction::make()
-        ->exporter(ExpenseExporter::class)
-        ->formats([
-                ExportFormat::Csv,
-                ]),
-])
+            ->headerActions([
+                ImportAction::make()
+                    ->importer(ExpenseImporter::class),
+                ExportAction::make()
+                    ->exporter(ExpenseExporter::class)
+                    ->formats([
+                        ExportFormat::Csv,
 
-        
-            
+                    ])
+                    // ->queue(),
+            ])
+
+
+
             ->columns([
                 TextColumn::make('name')->label(__('lang.goal_fields.name'))
                     ->searchable(),
@@ -119,12 +121,12 @@ public static function getPluralModelLabel(): string
             ]);
     }
 
-      public static function getEloquentQuery(): \Illuminate\Database\Eloquent\Builder
+    public static function getEloquentQuery(): \Illuminate\Database\Eloquent\Builder
     {
         return parent::getEloquentQuery()
             ->where('user_id', auth()->guard('web')->id());
     }
-    
+
     public static function getPages(): array
     {
         return [

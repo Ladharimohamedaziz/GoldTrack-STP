@@ -38,7 +38,6 @@ class IncomeImporter extends Importer
                 . ' ' . str('row')->plural($failedRowsCount)
                 . ' failed to import.';
         }
-
         return $body;
     }
     public function resolveRecord(): ?Income

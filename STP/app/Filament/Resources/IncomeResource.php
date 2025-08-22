@@ -25,27 +25,28 @@ use Filament\Tables\Actions\ImportAction;
 use App\Filament\Imports\IncomeImporter;
 
 use App\Filament\Exports\IncomeExporter;
+
 class IncomeResource extends Resource
 {
     protected static ?string $model = Income::class;
     protected static ?string $navigationIcon = 'heroicon-o-banknotes';
     // protected static ?string $navigationGroup = 'Finance Management';
-    
 
 
 
 
-//   protected static ?string $navigationGroup = null;
 
-//     // override getHeading() بطريقة non-static
-//     public function getHeading(): ?string
-//     {
-//         return __('lang.finance_management');
-//     }
+    //   protected static ?string $navigationGroup = null;
+
+    //     // override getHeading() بطريقة non-static
+    //     public function getHeading(): ?string
+    //     {
+    //         return __('lang.finance_management');
+    //     }
 
 
 
-    
+
     // public static function getNavigationLabel(): string
     // {
     //     return __('lang.income');
@@ -56,17 +57,17 @@ class IncomeResource extends Resource
     // }
 
 
-public static function getNavigationLabel(): string
-{
-    return __('lang.incomes'); // النص بالعربي مباشرة، مثلا "المداخيل"
-}
+    public static function getNavigationLabel(): string
+    {
+        return __('lang.incomes'); // النص بالعربي مباشرة، مثلا "المداخيل"
+    }
 
-public static function getModelLabel(): string
-{
-    return __('lang.incomes'); // النص المفرد بالعربي، مثلا "مصروف"
-}
+    public static function getModelLabel(): string
+    {
+        return __('lang.incomes'); // النص المفرد بالعربي، مثلا "مصروف"
+    }
 
-public static function getPluralModelLabel(): string
+    public static function getPluralModelLabel(): string
     {
         return __('lang.incomes'); // plural
     }
@@ -121,8 +122,10 @@ public static function getPluralModelLabel(): string
                 ->exporter(IncomeExporter::class)
                 ->formats([
                     ExportFormat::Csv,
-                    ]),
-])
+                ])
+                // ->queue(),
+
+        ])
 
 
             ->columns([

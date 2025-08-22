@@ -9,6 +9,7 @@ return [
 'revenue vs Expenses (Monthly)' => 'Revenus vs Dépenses (Mensuel)',
 'expenses' => 'Dépenses',
 'revenues' => 'Revenus',
+'expense_limits' => 'Limites de dépenses',
 
 
 

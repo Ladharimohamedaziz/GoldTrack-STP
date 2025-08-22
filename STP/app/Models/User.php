@@ -3,11 +3,15 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Models\Contracts\HasAvatar;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable
+
+class User extends Authenticatable implements FilamentUser, HasAvatar
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
@@ -16,16 +20,38 @@ class User extends Authenticatable
      *
      * @var list<string>
      */
-  protected $fillable = [
-    'name',
-    'first_name',
-    'last_name',
-    'email',
-    'phone',
-    'dob',
-    'password',
-    'profile_image',
-];
+
+
+    // public function getFilamentAvatarUrl(): ?string
+    // {
+    //     return $this->profile_image 
+    //         ? asset('storage/' . $this->profile_image)
+    //         : asset('default-avatar.png'); // optional
+    // }
+
+    public function getFilamentName(): string
+    {
+        return $this->name;
+    }
+
+    public function getFilamentAvatarUrl(): ?string
+    {
+        return $this->profile_image
+            ? asset('storage/' . $this->profile_image)
+            : asset('default-avatar.png'); // optional default
+    }
+
+
+    protected $fillable = [
+        'name',
+        'first_name',
+        'last_name',
+        'email',
+        'phone',
+        'dob',
+        'password',
+        'profile_image',
+    ];
 
 
     /**
@@ -50,13 +76,19 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-    public function getFilamentName(): string
-    {
-        return $this->name;
-    }
+    // public function getFilamentName(): string
+    // {
+    //     return $this->name;
+    // }
 
-//     public function getFilamentAvatarUrl(): ?string
-// {
-//     return $this->avatar_url; 
-// }
+    //     public function getFilamentAvatarUrl(): ?string
+    // {
+    //     return $this->avatar_url; 
+    // }
+
+        public function canAccessPanel(\Filament\Panel $panel): bool
+    {
+        // 👇 customize access (example: only admins)
+        return true; // or $this->is_admin === 1;
+    }
 }

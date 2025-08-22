@@ -49,23 +49,36 @@ class FinancialCards extends BaseWidget
         };
 
         return [
-            Stat::make('Total Income', number_format($income, 2) . ' TND')
+            Stat::make('Total Income', number_format($income, 2) .__('lang.currency'))
+                ->icon('heroicon-o-banknotes')
+                
                 ->color($incomeColor)
-                ->description('Sur 3 ans')
+                ->label(__('lang.Total Income'))
+                // ->description('Sur 3 ans')
                 ->descriptionIcon('heroicon-o-banknotes'),
 
-            Stat::make('Total Expenses', number_format($expenses, 2) . ' TND')
+            Stat::make('Total Expenses', number_format($expenses, 2).__('lang.currency'))
+                ->icon('heroicon-o-credit-card')
                 ->color($expensesColor)
                 ->description('Toutes les dépenses')
+                ->description(__('lang.toutes les dépenses'))
+                ->label(__('lang.Total Expenses'))
                 ->descriptionIcon('heroicon-o-credit-card'),
 
-            Stat::make('Net Profit', number_format($netProfit, 2) . ' TND')
-                ->color($netProfitColor)
+            Stat::make('Net Profit', number_format($netProfit, 2).__('lang.currency'))
+                ->icon($netProfitIcon)    
+            ->color($netProfitColor)
+                ->label(__('lang.Net Profit'))
                 ->description('Revenu net')
+                ->description(__('lang.Revenu net'))
                 ->descriptionIcon($netProfitIcon),
 
-            Stat::make('Goal', number_format($goal, 2) . ' TND')
+            Stat::make('Goal', number_format($goal, 2) .__('lang.currency'))
+                ->icon('heroicon-o-flag')
                 ->description('Objectifs financiers')
+                ->description(__('lang.Objectifs financiers'))
+                ->color('info')
+                ->label(__('lang.Goal'))    
                 ->descriptionIcon('heroicon-o-flag'),
         ];
     }

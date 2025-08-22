@@ -1,11 +1,48 @@
 <?php
 
 return [
+
+'Expenses by Budget' => 'Dépenses par budget',
+'revenue vs Expenses (Monthly)' => 'Revenu vs Dépenses (Mensuel)',
+
+    "budget_limit" => "Limite de budget",
+'revenue vs Expenses (Monthly)' => 'Revenus vs Dépenses (Mensuel)',
+'expenses' => 'Dépenses',
+'revenues' => 'Revenus',
+
+
+
+
+
+
+
+
+
+
     'goal'=>'Objectif',
     'expense_limit'=>'Limite de dépense',
     'Categories'=>'Catégorie',
     'Expense'=>'Dépense',
-    'incomes'=>'Revenu',
+    'incomes '=>'Revenu',
+    'income '=>'Revenu',
+    'currency' => 'TND',
+
+   'Total Expenses' => 'Toutes les dépenses',
+    'Total Income' => 'Revenu total',
+    'Net Profit' => 'Bénéfice net',
+    'Goal' => 'Objectif',
+
+    'Objectifs financiers' => 'Objectifs financiers',
+    'Revenu net' => 'Revenu net',
+    'toutes les dépenses' => 'Toutes les dépenses',
+
+    'goal' => 'Objectif',
+    'expense_limit' => 'Limite de dépense',
+    'Categories' => 'Catégories',
+    'Expense' => 'Dépense',
+
+
+
 
     "goal_fields"=>[
         "amount"=>"Montant",
@@ -36,4 +73,20 @@ return [
         "Category"=>"Catégories",
         "budget_limit"=>"Limite de budget",
     ],
+
+
+
+    'Jan' => 'Janvier',
+'Feb' => 'Février',
+'Mar' => 'Mars',
+'Apr' => 'Avril',
+'May' => 'Mai',
+'Jun' => 'Juin',
+'Jul' => 'Juillet',
+'Aug' => 'Août',
+'Sep' => 'Septembre',
+'Oct' => 'Octobre',
+'Nov' => 'Novembre',
+'Dec' => 'Décembre',
+
 ];

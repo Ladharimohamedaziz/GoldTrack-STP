@@ -2,10 +2,36 @@
 
 return [
 
+    'finance_management' => 'إدارة المالية',
+    'currency' => 'د.ت',
+
+    'Expenses by Budget' => 'المصاريف حسب الميزانية',
+
+    "budget_limit" => "حد الميزانية",
+    'revenue vs Expenses (Monthly)' => 'الإيرادات مقابل المصاريف (شهريًا)',
+    'expenses' => 'المصاريف',
+    'expense_limits'   => 'حدود المصاريف',
+    'revenues' => 'الإيرادات',
+
+    // 'م' => 'الهدف',
+
+
+    "Total Expenses" => "جميع المصاريف",
+    'Total Income' => 'إجمالي الدخل',
+    'Total Expenses' => 'إجمالي المصاريف',
+    'Net Profit' => 'صافي الربح',
+    'Goal' => 'الهدف',
+
+    'Objectifs financiers' => 'الأهداف المالية',
+    'Revenu net' => 'الدخل الصافي',
+    'toutes les dépenses' => 'جميع المصاريف',
+
     'goal' => 'هدف',
     'expense_limit' => 'حد المصروف',
     'Categories' => 'الفئات',
     'Expense' => 'المصروف',
+
+
     // 'incomes' => 'الدخل',
     'incomes' => 'المداخيل',
     'income' => 'الدخل',
@@ -40,4 +66,20 @@ return [
         "Category" => "الفئات",
         "budget_limit" => "حد الميزانية",
     ],
+
+
+
+    'Jan' => 'جانفي',
+'Feb' => 'فيفري',
+'Mar' => 'مارس',
+'Apr' => 'أفريل',
+'May' => 'ماي',
+'Jun' => 'جوان',
+'Jul' => 'جوييه',
+'Aug' => 'أوت',
+'Sep' => 'سبتمبر',
+'Oct' => 'أكتوبر',
+'Nov' => 'نوفمبر',
+'Dec' => 'ديسمبر',
+
 ];

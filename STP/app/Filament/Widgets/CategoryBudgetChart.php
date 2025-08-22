@@ -10,7 +10,20 @@ use Illuminate\Support\Facades\Auth;
 
 class CategoryBudgetChart extends ChartWidget
 {
-    protected static ?string $heading = 'Dépenses par Budget';
+    // protected static ?string $heading = 'Dépenses par Budget';
+    // protected static ?string $heading = __('lang.Expenses by Budget');
+
+
+     // خليها static (كما في ChartWidget الأصلية)
+    protected static ?string $heading = null;
+
+    // override getHeading() بطريقة non-static
+    public function getHeading(): ?string
+    {
+        return __('lang.Expenses by Budget'); 
+    }
+
+
 
     protected function getData(): array
     {
@@ -47,11 +60,13 @@ class CategoryBudgetChart extends ChartWidget
             'datasets' => [
                 [
                     'label' => 'Dépensé',
+                    'label' => __('lang.Expense'),
                     'data' => $spent,
                     'backgroundColor' => 'rgba(255, 205, 86, 0.8)', // Jaune
                 ],
                 [
                     'label' => 'Limite du budget',
+                    'label' => __('lang.budget_limit'),
                     'data' => $limits,
                     'backgroundColor' => 'rgba(75, 192, 75, 0.6)',
                     'borderColor' => 'rgba(75, 192, 80, 1)',

@@ -21,7 +21,7 @@ use App\Filament\Resources\ExpenseResource\Pages\EditExpense;
 use App\Filament\Imports\ExpenseImporter;
 use Filament\Tables\Actions\ExportAction;
 use Filament\Tables\Actions\ImportAction;
-
+use App\Filament\Exports\ExpenseExporter;
 
 
 class ExpenseResource extends Resource
@@ -38,6 +38,12 @@ class ExpenseResource extends Resource
     {
         return __('lang.Expense');
     }
+
+public static function getPluralModelLabel(): string
+    {
+        return __('lang.expenses'); // plural
+    }
+
 
     public static function form(Forms\Form $form): Forms\Form
     {
@@ -86,8 +92,13 @@ class ExpenseResource extends Resource
         return $table
 ->headerActions([
     ImportAction::make()
-        ->importer(ExpenseImporter::class),
-    // ExportAction::make()
+        ->importer(ExpenseImporter::class)
+        ->headerActions([
+            ExportAction::make()
+                ->exporter(ExpenseExporter::class)
+                ->fileFormats(['csv']), // restrict to CSV only
+])
+   
 ])
             
             ->columns([

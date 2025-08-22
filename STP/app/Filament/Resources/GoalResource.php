@@ -32,7 +32,10 @@ class GoalResource extends Resource
     {
         return __('lang.goal');
     }
-
+public static function getPluralModelLabel(): string
+    {
+        return __('lang.goal'); // plural
+    }
 
     public static function form(Forms\Form $form): Forms\Form
     {

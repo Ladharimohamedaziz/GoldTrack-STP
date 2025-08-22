@@ -31,6 +31,12 @@ class BudgetLimitResource extends Resource
     {
         return __('lang.expense_limit');
     }
+
+
+public static function getPluralModelLabel(): string
+    {
+        return __('lang.expense_limits'); // plural
+    }
     public static function form(Forms\Form $form): Forms\Form
     {
         return $form->schema([

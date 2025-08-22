@@ -9,7 +9,18 @@ use Carbon\Carbon;
 
 class MonthlyFinanceChart extends ChartWidget
 {
-    protected static ?string $heading = 'Revenue vs Expenses (Monthly)';
+
+
+    protected static ?string $heading = null;
+
+    // override getHeading() بطريقة non-static
+    public function getHeading(): ?string
+    {
+        return __('lang.revenue vs Expenses (Monthly)');
+    }
+
+
+
 
     protected function getData(): array
     {
@@ -27,8 +38,9 @@ class MonthlyFinanceChart extends ChartWidget
             $endOfMonth = $monthCarbon->copy()->endOfMonth()->format('Y-m-d');
 
             return Income::where('user_id', $userId)
-                        ->whereBetween('received_date', [$startOfMonth, $endOfMonth])
-                        ->sum('amount');
+                ->whereBetween('received_date', [$startOfMonth, $endOfMonth])
+
+                ->sum('amount');
         });
 
         // 📊 Expense data per month
@@ -37,28 +49,30 @@ class MonthlyFinanceChart extends ChartWidget
             $endOfMonth = $monthCarbon->copy()->endOfMonth()->format('Y-m-d');
 
             return Expense::where('user_id', $userId)
-                        ->whereBetween('start_date', [$startOfMonth, $endOfMonth])
-                        ->sum('amount');
+                ->whereBetween('start_date', [$startOfMonth, $endOfMonth])
+                ->sum('amount');
         });
 
         return [
             'datasets' => [
                 [
-                    'label' => 'Revenue',
+                    'label' =>  __('lang.revenues'),
                     'data' => $incomeData,
                     'backgroundColor' => 'rgba(75, 192, 75, 0.6)',
                     'borderColor' => 'rgba(75, 192, 80, 1)',
                     'borderWidth' => 1,
                 ],
                 [
-                    'label' => 'Expenses',
+                    'label' => __('lang.expenses'),
                     'data' => $expenseData,
                     'backgroundColor' => 'rgba(255, 99, 132, 0.6)',
                     'borderColor' => 'rgba(255, 99, 132, 1)',
                     'borderWidth' => 1,
                 ],
             ],
-            'labels' => $months->map(fn($monthCarbon) => $monthCarbon->format('M Y'))->toArray(),
+            // 'labels' => $months->map(fn($monthCarbon) => $monthCarbon->format('M Y'))->toArray(),
+            'labels' => $months->map(fn($monthCarbon) => __('lang.' . $monthCarbon->format('M')) . ' ' . $monthCarbon->format('Y'))->toArray(),
+
         ];
     }
 

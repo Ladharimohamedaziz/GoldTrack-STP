@@ -14,6 +14,9 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use App\Filament\Imports\ExpenseImporter;
+use Filament\Actions\Exports\Enums\ExportFormat;
+use Filament\Tables\Actions\ExportAction;
+use Filament\Actions\Exports\Enums\ExportFileFormat;
 
 // use Filament\Tables\Actions\ExportAction;
 use Filament\Tables\Actions\ImportAction;
@@ -21,6 +24,7 @@ use Filament\Tables\Actions\ImportAction;
 
 use App\Filament\Imports\IncomeImporter;
 
+use App\Filament\Exports\IncomeExporter;
 class IncomeResource extends Resource
 {
     protected static ?string $model = Income::class;
@@ -113,7 +117,14 @@ public static function getPluralModelLabel(): string
         return $table->headerActions([
             ImportAction::make()
                 ->importer(IncomeImporter::class),
-        ])
+            ExportAction::make()
+                ->exporter(IncomeExporter::class)
+                ->formats([
+                    ExportFormat::Csv,
+                    ]),
+])
+
+
             ->columns([
                 TextColumn::make('source')->searchable(),
                 TextColumn::make('amount')

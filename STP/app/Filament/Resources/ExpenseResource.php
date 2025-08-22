@@ -22,7 +22,7 @@ use App\Filament\Imports\ExpenseImporter;
 use Filament\Tables\Actions\ExportAction;
 use Filament\Tables\Actions\ImportAction;
 use App\Filament\Exports\ExpenseExporter;
-
+use Filament\Actions\Exports\Enums\ExportFormat;
 
 class ExpenseResource extends Resource
 {
@@ -92,14 +92,15 @@ public static function getPluralModelLabel(): string
         return $table
 ->headerActions([
     ImportAction::make()
-        ->importer(ExpenseImporter::class)
-        ->headerActions([
-            ExportAction::make()
-                ->exporter(ExpenseExporter::class)
-                ->fileFormats(['csv']), // restrict to CSV only
+        ->importer(ExpenseImporter::class),
+    ExportAction::make()
+        ->exporter(ExpenseExporter::class)
+        ->formats([
+                ExportFormat::Csv,
+                ]),
 ])
-   
-])
+
+        
             
             ->columns([
                 TextColumn::make('name')->label(__('lang.goal_fields.name'))
